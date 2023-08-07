@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Post } from '@src/post/post.entity';
+import { User } from '@src/user/user.entity';
 import { Exclude } from 'class-transformer';
 import {
   CreateDateColumn,
@@ -8,12 +8,11 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-  OneToMany,
-  JoinColumn,
+  ManyToOne,
 } from 'typeorm';
 
-@Entity('user')
-export class User {
+@Entity('post')
+export class Post {
   @Exclude({ toPlainOnly: true })
   @PrimaryGeneratedColumn({ name: 'id' })
   id: number;
@@ -22,17 +21,13 @@ export class User {
   @Column({ type: 'varchar', nullable: false, length: 36 })
   uuid: string;
 
-  @ApiProperty({ description: 'Full name', maximum: 128, required: false })
-  @Column({ type: 'varchar', nullable: true, length: 128 })
-  name: string;
+  @ApiProperty({ description: 'Title', maximum: 256, required: false })
+  @Column({ type: 'varchar', nullable: true, length: 256 })
+  title: string;
 
-  @ApiProperty({ description: 'E-mail', maximum: 255, required: true })
-  @Column({ type: 'varchar', nullable: false, length: 255 })
-  email: string;
-
-  @ApiProperty({ description: 'Password', maximum: 255, required: true })
-  @Column({ type: 'varchar', nullable: false, length: 255 })
-  password: string;
+  @ApiProperty({ description: 'Content', maximum: 5000, required: true })
+  @Column({ type: 'varchar', nullable: false, length: 5000 })
+  content: string;
 
   @ApiProperty({
     description: 'Date when the user was created',
@@ -52,7 +47,6 @@ export class User {
   @DeleteDateColumn()
   deletedAt: Date;
 
-  @OneToMany(() => Post, (post) => post.user)
-  @JoinColumn({ name: 'id', referencedColumnName: 'user_id' })
-  posts: Post[];
+  @ManyToOne(() => User, (user) => user.posts)
+  user: User;
 }

@@ -7,6 +7,6 @@ import { UserExistsByEmailValidator } from './validator/user-exists-by-email.val
 @Module({
   controllers: [UserController],
   providers: [UserService, UserRepository, UserExistsByEmailValidator],
-  exports: [UserService],
+  exports: [UserService, UserRepository],
 })
 export class UserModule {}

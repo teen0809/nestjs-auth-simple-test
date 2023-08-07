@@ -12,7 +12,7 @@ import jwtConfig from './config/jwt.config';
 import { validate } from './common/validators/env.validator';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
-import { AuthRefreshTokenModule } from './auth-refresh-token/auth-refresh-token.module';
+import { PostModule } from './post/post.module';
 
 EnvHelper.verifyNodeEnv();
 
@@ -38,7 +38,7 @@ EnvHelper.verifyNodeEnv();
     }),
     UserModule,
     AuthModule,
-    AuthRefreshTokenModule,
+    PostModule,
   ],
   controllers: [AppController],
   providers: [AppService],

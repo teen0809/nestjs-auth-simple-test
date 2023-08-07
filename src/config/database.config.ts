@@ -27,5 +27,5 @@ export default registerAs('databaseConfig', () => ({
     waitForConnections: process.env.POSTGRESQL_WAIT_FOR_CONNECTIONS === 'true',
   },
   poolSize: process.env.TYPEORM_POOL_SIZE,
-  ssl: { rejectUnauthorized: process.env.POSTGRESQL_TLS === 'true' },
+  ssl: false,
 }));
